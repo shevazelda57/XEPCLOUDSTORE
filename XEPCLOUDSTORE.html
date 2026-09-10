@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XEPCLOUDSTORE — Premium Vape Store Indonesia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Library EmailJS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function() {
+    emailjs.init("r2XKiZ-n_oQqzGwhL");
+  })();
+</script>
+
+<style>
+  :root{
+    --ink:#12141a;
+    --ink-soft:#1c1f28;
+    --fog:#eef0ee;
+    --fog-warm:#e6e2d8;
+    --ember:#ff6a3d;
+    --ember-dim:#c9532f;
+    --mist:#5fd8c4;
+    --paper:#f7f6f2;
+    --line: rgba(238,240,238,0.14);
+    --line-dark: rgba(18,20,26,0.12);
+    --muted:#8a8f9a;
+    --muted-dark:#6b6f5f;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--fog);
+    font-family:'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    line-height:1.05;
+  }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(18,20,26,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px;
+    max-width:1180px; margin:0 auto;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700; font-size:1.25rem; letter-spacing:-0.02em;
+  }
+  .logo-mark{width:26px; height:26px;}
+  .nav-links{display:flex; gap:34px; font-size:0.92rem; color:var(--muted);}
+  .nav-links a:hover{color:var(--fog);}
+  
+  .nav-actions{display:flex; align-items:center; gap:16px;}
+  .cart-btn{
+    position:relative; background:var(--ink-soft); border:1px solid var(--line);
+    color:var(--fog); padding:10px 16px; border-radius:2px; font-weight:600;
+    font-size:0.88rem; cursor:pointer; display:flex; align-items:center; gap:8px;
+    transition:all 0.2s ease;
+  }
+  .cart-btn:hover{border-color:var(--mist); color:var(--mist);}
+  .cart-badge{
+    background:var(--ember); color:var(--ink); font-size:0.75rem;
+    font-weight:700; border-radius:50%; width:18px; height:18px;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  .nav-cta{
+    background:var(--ember); color:var(--ink);
+    padding:10px 20px; border-radius:2px;
+    font-weight:600; font-size:0.88rem;
+    border:1px solid var(--ember);
+    transition:background 0.2s ease, color 0.2s ease;
+  }
+  .nav-cta:hover{background:transparent; color:var(--ember);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:96px 0 80px;
+    overflow:hidden;
+  }
+  .hero-glow{
+    position:absolute; top:-160px; right:-160px;
+    width:560px; height:560px; border-radius:50%;
+    background:radial-gradient(circle, rgba(95,216,196,0.16), transparent 68%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr;
+    gap:48px; align-items:center;
+    position:relative; z-index:2;
+  }
+  @media (max-width:920px){ .hero-grid{grid-template-columns:1fr; gap:56px;} }
+
+  .eyebrow-row{
+    display:flex; align-items:center; gap:12px;
+    margin-bottom:26px; color:var(--mist); font-size:0.86rem;
+  }
+  .eyebrow-row .rule{width:32px; height:1px; background:var(--mist);}
+
+  .hero h1{
+    font-size:clamp(2.4rem, 5.2vw, 4.1rem);
+    max-width:11ch;
+  }
+  .hero p.lede{
+    margin-top:22px; max-width:46ch;
+    font-size:1.08rem; line-height:1.65; color:#c4c8ca;
+  }
+  .hero-actions{display:flex; gap:16px; margin-top:36px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--ember); color:var(--ink); font-weight:600;
+    padding:15px 28px; border-radius:2px; font-size:0.95rem;
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--ember);
+    transition:transform 0.18s ease, background 0.18s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px); background:#ff7f57;}
+  .btn-ghost{
+    padding:15px 24px; border-radius:2px; font-size:0.95rem;
+    border:1px solid var(--line); color:var(--fog);
+    transition:border-color 0.18s ease, background 0.18s ease;
+  }
+  .btn-ghost:hover{border-color:var(--mist); background:rgba(95,216,196,0.06);}
+
+  .hero-card {
+    background: linear-gradient(145deg, var(--ink-soft), #151821);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 32px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+  .hero-card-badge {
+    position: absolute; top: -12px; right: 24px;
+    background: var(--mist); color: var(--ink);
+    font-size: 0.75rem; font-weight: 700; padding: 4px 12px;
+    border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  .hero-stats{
+    display:flex; gap:36px; margin-top:40px;
+    padding-top:28px; border-top:1px solid var(--line);
+  }
+  .hero-stats .stat b{
+    font-family:'Space Grotesk', sans-serif; font-size:1.6rem; display:block;
+  }
+  .hero-stats .stat span{font-size:0.82rem; color:var(--muted);}
+
+  /* ---------- Marquee strip ---------- */
+  .strip{
+    background:var(--ember); color:var(--ink);
+    padding:12px 0; overflow:hidden; white-space:nowrap;
+    font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:0.9rem;
+  }
+  .strip-track{display:inline-block; padding-left:100%; animation:scroll-left 26s linear infinite;}
+  .strip-track span{margin:0 28px;}
+  @keyframes scroll-left{ from{transform:translateX(0);} to{transform:translateX(-100%);} }
+
+  /* ---------- Section Shared ---------- */
+  section{padding:96px 0;}
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:32px; margin-bottom:40px; flex-wrap:wrap;
+  }
+  .section-head h2{font-size:clamp(1.8rem, 3vw, 2.6rem); max-width:14ch;}
+  .section-head p{max-width:36ch; color:var(--muted); font-size:0.98rem; line-height:1.6;}
+
+  /* ---------- Products ---------- */
+  .products{background:var(--paper); color:var(--ink);}
+  
+  .filter-bar{
+    display:flex; gap:12px; margin-bottom:32px; flex-wrap:wrap;
+  }
+  .filter-btn{
+    background:transparent; border:1px solid var(--line-dark);
+    padding:8px 18px; border-radius:2px; font-size:0.88rem;
+    font-family:'Space Grotesk', sans-serif; font-weight:500;
+    cursor:pointer; transition:all 0.2s ease; color:var(--ink);
+  }
+  .filter-btn.active, .filter-btn:hover{
+    background:var(--ink); color:var(--fog); border-color:var(--ink);
+  }
+
+  .product-rail{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;
+  }
+  @media (max-width:900px){ .product-rail{grid-template-columns:1fr 1fr;} }
+  @media (max-width:600px){ .product-rail{grid-template-columns:1fr;} }
+  
+  .product-card{
+    background:var(--ink); color:var(--fog);
+    border-radius:3px; overflow:hidden;
+    display:flex; flex-direction:column;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .product-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 24px rgba(0,0,0,0.25);
+  }
+  .product-media{
+    background:linear-gradient(160deg, #1c1f28, #12141a);
+    padding:34px 26px 20px; min-height:180px;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .product-badge{
+    position:absolute; top:12px; left:12px;
+    background:var(--ember); color:var(--ink);
+    font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:2px;
+  }
+  .product-body{padding:22px 26px 28px; display:flex; flex-direction:column; gap:10px; flex-grow:1;}
+  .product-tag{font-size:0.76rem; color:var(--mist); font-family:'Space Grotesk',sans-serif; text-transform:uppercase; letter-spacing:0.05em;}
+  .product-body h3{font-size:1.15rem;}
+  .product-body p{font-size:0.86rem; color:var(--muted); line-height:1.55;}
+  .product-foot{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:auto; padding-top:14px; border-top:1px solid var(--line);
+  }
+  .product-foot .price{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:1.1rem;}
+  .product-foot button{
+    background:var(--ember); border:1px solid var(--ember); color:var(--ink);
+    padding:8px 16px; border-radius:2px; font-size:0.82rem; font-weight:600;
+    cursor:pointer; transition:all 0.2s ease;
+  }
+  .product-foot button:hover{
+    background:transparent; color:var(--ember);
+  }
+
+  /* ---------- Contact Section ---------- */
+  .contact-section {
+    background: var(--ink-soft);
+    padding: 96px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (max-width: 880px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  .contact-info { display: flex; flex-direction: column; gap: 20px; }
+  .info-card {
+    background: var(--ink); border: 1px solid var(--line);
+    padding: 20px; border-radius: 3px; display: flex; align-items: flex-start; gap: 16px;
+  }
+  .info-icon {
+    width: 40px; height: 40px; background: rgba(95, 216, 196, 0.1);
+    border: 1px solid var(--mist); border-radius: 2px; display: flex; align-items: center; justify-content: center; color: var(--mist); flex-shrink: 0;
+  }
+  .info-content h4 { font-size: 1rem; margin-bottom: 4px; color: var(--fog); }
+  .info-content p, .info-content a { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+  .info-content a:hover{ color:var(--mist); }
+
+  .contact-form-card {
+    background: var(--ink); border: 1px solid var(--line); padding: 36px; border-radius: 3px;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group label { font-size: 0.85rem; color: var(--fog); font-weight: 500; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; background: var(--ink-soft); border: 1px solid var(--line);
+    color: var(--fog); padding: 12px 16px; font-family: inherit; font-size: 0.92rem; border-radius: 2px;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--mist); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+
+  .btn-submit {
+    background: var(--ember); color: var(--ink); font-weight: 600;
+    padding: 14px 28px; border: 1px solid var(--ember); border-radius: 2px;
+    cursor: pointer; font-size: 0.95rem; font-family: 'Space Grotesk', sans-serif;
+    transition: background 0.2s ease, transform 0.2s ease; margin-top: 8px;
+  }
+  .btn-submit:hover { background: #ff7f57; transform: translateY(-2px); }
+
+  /* ---------- Modal Keranjang ---------- */
+  .modal-overlay{
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.7); backdrop-filter:blur(5px);
+    z-index:100; display:none; justify-content:center; align-items:center;
+  }
+  .modal-overlay.active{ display:flex; }
+  .modal-card{
+    background:var(--ink-soft); border:1px solid var(--line);
+    width:100%; max-width:500px; padding:32px; border-radius:4px;
+    position:relative; max-height:90vh; overflow-y:auto;
+  }
+  .modal-close{
+    position:absolute; top:20px; right:20px; background:none;
+    border:none; color:var(--muted); font-size:1.5rem; cursor:pointer;
+  }
+  .modal-close:hover{ color:var(--fog); }
+  .cart-item{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:12px 0; border-bottom:1px solid var(--line);
+  }
+  .cart-total{
+    display:flex; justify-content:space-between; margin-top:20px;
+    font-weight:600; font-size:1.1rem; padding-top:12px; border-top:2px solid var(--line);
+  }
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink); padding:64px 0 28px; border-top:1px solid var(--line);}
+  .foot-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid var(--line); }
+  @media (max-width:768px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+  .foot-brand p{color:var(--muted); font-size:0.88rem; margin-top:14px; max-width:32ch; line-height:1.6;}
+  .foot-col h4{font-size:0.84rem; color:var(--muted); margin-bottom:14px;}
+  .foot-col a{display:block; font-size:0.9rem; color:var(--fog); margin-bottom:10px;}
+  .foot-bottom{ display:flex; justify-content:space-between; align-items:center; padding-top:24px; font-size:0.8rem; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">
+      <svg class="logo-mark" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C9 7 6 9.5 6 14a6 6 0 0 0 12 0c0-2.4-1-4.2-2.3-6-.2 2-1.2 3.4-2.4 4-.6-3-1-6-1.3-10Z" fill="#5fd8c4"/>
+      </svg>
+      XEP CLOUDSTORE
+    </div>
+    <nav class="nav-links">
+      <a href="#produk">Produk</a>
+      <a href="#hubungi">Hubungi Kami</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="cart-btn" id="cart-toggle">
+        🛒 <span class="cart-badge" id="cart-count">0</span>
+      </button>
+      <a href="#produk" class="nav-cta">Belanja Sekarang</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow-row"><span class="rule"></span> Toko Vape Resmi & Terpercaya · 18+</div>
+        <h1>Perangkat vape presisi untuk kebutuhan harianmu.</h1>
+        <p class="lede">XEPCLOUDSTORE menghadirkan pod system, liquid premium, dan device terpilih yang telah teruji kualitasnya secara langsung.</p>
+        <div class="hero-actions">
+          <a href="#produk" class="btn-primary">Lihat Katalog Produk →</a>
+          <a href="#hubungi" class="btn-ghost">Konsultasi Gratis</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-badge">Rekomendasi Utama</div>
+        <div style="font-size: 0.8rem; color: var(--mist); font-family: 'Space Grotesk', sans-serif; margin-bottom: 8px;">POD SYSTEM SERIES</div>
+        <h3 style="font-size: 1.5rem; margin-bottom: 12px;">PODXEP 15 PRO</h3>
+        <p style="font-size: 0.9rem; color: var(--muted); line-height: 1.6; margin-bottom: 20px;">
+          Desain ultra-ringan dengan sistem transmisi rasa yang diperbarui. Baterai tahan seharian penuh dengan pengisian daya cepat Type-C.
+        </p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <span style="font-size: 0.75rem; color: var(--muted); display: block;">Harga Spesial</span>
+            <span style="font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700;">Rp 195.000</span>
+          </div>
+          <button class="btn-primary" style="padding: 10px 18px;" onclick="addToCart('PODXEP 15 PRO', 195000)">+ Keranjang</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <b>100%</b>
+            <span>Produk Authentic</span>
+          </div>
+          <div class="stat">
+            <b>24/7</b>
+            <span>Layanan CS</span>
+          </div>
+          <div class="stat">
+            <b>Garansi</b>
+            <span>30 Hari Resmi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE STRIP -->
+  <div class="strip">
+    <div class="strip-track">
+      <span>GARANSI RESMI 30 HARI</span> · <span>100% PRODUCT ORIGINAL</span> · <span>PENGIRIMAN CEPAT</span> · <span>LAYANAN KONSULTASI RASA</span> · <span>GARANSI RESMI 30 HARI</span> · <span>100% PRODUCT ORIGINAL</span>
+    </div>
+  </div>
+
+  <!-- PRODUCTS SECTION -->
+  <section class="products" id="produk">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow-row" style="color:var(--ember); margin-bottom:8px;"><span class="rule" style="background:var(--ember)"></span> Katalog Produk</div>
+          <h2>Pilihan Terbaik Kami</h2>
+        </div>
+        <p>Setiap produk telah dikurasi untuk memastikan kepuasan dan kualitas vaping terbaik.</p>
+      </div>
+
+      <!-- Filter Category -->
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterProducts('all')">Semua Produk</button>
+        <button class="filter-btn" onclick="filterProducts('pod')">Pod System & ModKit</button>
+        <button class="filter-btn" onclick="filterProducts('liquid')">Liquid Premium</button>
+        <button class="filter-btn" onclick="filterProducts('accessories')">Aksesoris & Coil</button>
+      </div>
+
+      <div class="product-rail" id="product-list">
+        <!-- Item 1 -->
+        <div class="product-card" data-category="pod">
+          <div class="product-media">
+            <img src="gambar/pod 1.webp" alt="" srcset="">
+          </div>
+          <div class="product-body">
+            <div class="product-tag">Pod System</div>
+            <h3>PODXEP 15 PRO</h3>
+            <p>Sistem pod ringkas dengan kestabilan rasa tingkat tinggi.</p>
+            <div class="product-foot">
+              <span class="price">Rp 195.000</span>
+              <button onclick="addToCart('PODXEP 15 PRO', 195000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="product-card" data-category="liquid">
+          <div class="product-media">
+            <img src="gambar/lq 1.png" alt="" srcset="">
+          </div>
+          <div class="product-body">
+            <div class="product-tag">Liquid Saltnic</div>
+            <h3>XEPCLOUD FROZE MANGO</h3>
+            <p>Sensasi dingin buah mangga segar dengan konsistensi rasa tinggi (100ml).</p>
+            <div class="product-foot">
+              <span class="price">Rp 120.000</span>
+              <button onclick="addToCart('CLOUD FROST MANGO', 120000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="product-card" data-category="accessories">
+          <div class="product-media">
+           <img src="gambar/lanyard 1.jpg" alt="" srcset="">
+          </div>
+          <div class="product-body">
+            <div class="product-tag">Aksesoris</div>
+            <h3>XEP GOLD LANYARD </h3>
+            <p>Aksesoris yang mempermudah dan memperindah pengalaman vaping anda</p>
+            <div class="product-foot">
+              <span class="price">Rp 45.000</span>
+              <button onclick="addToCart('XEP GOLD LANYARD', 45000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="product-card" data-category="pod">
+          <div class="product-media">
+            <img src="gambar/s200.webp" alt="" srcset="">
+          </div>
+          <div class="product-body">
+            <div class="product-tag">Mod Kit</div>
+            <h3>MODXEP S200 PRO</h3>
+            <p>Mod Kit ringkas yang siap kebul dengan kestabilan rasa tingkat tinggi.</p>
+            <div class="product-foot">
+              <span class="price">Rp 395.000</span>
+              <button onclick="addToCart('MODXEP S200 PRO', 395000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="product-card" data-category="liquid">
+          <div class="product-media">
+            <img src="gambar/lq teler.jpg" alt="" srcset="">
+          </div>
+          <div class="product-body">
+            <div class="product-tag">Liquid FreeBase</div>
+            <h3>XEPCLOUD TELER A BIES</h3>
+            <p>Sensasi ( Meminum ) es teler segar dengan berbagai macam flavor yang dapat digali (60ml).</p>
+            <div class="product-foot">
+              <span class="price">Rp 95.000</span>
+              <button onclick="addToCart('XEPCLOUD TELER A BIES', 95000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="product-card" data-category="accessories">
+          <div class="product-media">
+            <img src="gambar/acc modkit 1.jpg" alt="" srcset="">
+          </div>
+          <div class="product-body">
+            <div class="product-tag">Aksesoris</div>
+            <h3>XEPMOD SLEEVE</h3>
+            <p>Aksesoris modkit dirancang untuk pengguna yang memilih sensasi vaping yang praktis dan elegan</p>
+            <div class="product-foot">
+              <span class="price">Rp 70.000</span>
+              <button onclick="addToCart('XEPMOD SLEEVE', 75000)">+ Keranjang</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 7
+        <div class="product-card" data-category="pod">
+          <div class="product-media">
+            <img src="gambar/pod 3.webp" alt="" srcset="">
+          </div>
+          <div class="product-body">
+            <div class="product-tag">Pod System</div>
+            <h3>NAMA PRODUK POD LAINNYA</h3>
+            <p>Ganti deskripsi singkat produk pod system di sini.</p>
+            <div class="product-foot">
+              <span class="price">Rp 000.000</span>
+              <button onclick="addToCart('NAMA PRODUK POD LAINNYA', 0)">+ Keranjang</button>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM KONTAK EMAILJS -->
+  <section class="contact-section" id="hubungi">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow-row" style="margin-bottom: 12px;"><span class="rule"></span> Layanan Pelanggan</div>
+          <h2>Konsultasi & Bantuan</h2>
+        </div>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="info-card">
+            <div class="info-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="info-content">
+              <h4>Email Resmi</h4>
+              <p><a href="mailto:shevazelda57@gmail.com">shevazelda57@gmail.com</a></p>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="info-content">
+              <h4>Layanan WhatsApp</h4>
+              <p><a href="https://wa.me/628123456789" target="_blank">+62 85739717892</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form-card">
+          <form class="contact-form" id="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="from_name">Nama Lengkap</label>
+                <input type="text" id="from_name" name="from_name" placeholder="Contoh: Alex" required>
+              </div>
+              <div class="form-group">
+                <label for="whatsapp">Nomor WhatsApp</label>
+                <input type="tel" id="whatsapp" name="whatsapp" placeholder="0812xxxxxxx" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="topik">Kategori Pertanyaan</label>
+              <select id="topik" name="topik">
+                <option value="Konsultasi Produk">Konsultasi Produk / Pemula</option>
+                <option value="Klaim Garansi">Klaim Garansi (30 Hari)</option>
+                <option value="Tanya Status Pesanan">Tanya Status Pesanan</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Pesan / Pertanyaan</label>
+              <textarea id="message" name="message" rows="4" placeholder="Tuliskan pertanyaanmu secara detail..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit" id="btn-submit">Kirim Pesan ke Email →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- MODAL KERANJANG -->
+<div class="modal-overlay" id="cart-modal">
+  <div class="modal-card">
+    <button class="modal-close" id="modal-close">&times;</button>
+    <h3 style="margin-bottom: 20px; font-size: 1.3rem;">Keranjang Belanja</h3>
+    <div id="cart-items-container">
+      <p style="color: var(--muted); font-size: 0.9rem;">Keranjang belanja Anda masih kosong.</p>
+    </div>
+    <div class="cart-total">
+      <span>Total:</span>
+      <span id="cart-total-price">Rp 0</span>
+    </div>
+    <button class="btn-submit" style="width: 100%; margin-top: 20px;" onclick="checkoutWhatsApp()">Checkout via WhatsApp →</button>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">XEP CLOUDSTORE</div>
+        <p>Penyedia solusi vaping terpercaya di Indonesia dengan penekanan pada kualitas dan keamanan pengguna.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Navigasi</h4>
+        <a href="#produk">Produk</a>
+        <a href="#hubungi">Kontak</a>
+      </div>
+      <div class="foot-col">
+        <h4>Legal</h4>
+        <a href="#">Privasi</a>
+        <a href="#">Syarat & Ketentuan</a>
+      </div>
+      <div class="foot-col">
+        <h4>Sosial Media</h4>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 XEP CLOUD STORE. Semua hak dilindungi.</span>
+      <span>Hanya untuk 18 tahun ke atas.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ---------- SCRIPT EMAILJS ---------- */
+  document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const btn = document.getElementById('btn-submit');
+    btn.textContent = 'Mengirim...';
+    btn.disabled = true;
+
+    const serviceID = 'service_zfj27yp'; 
+    const templateID = 'template_0kkd7k6';
+
+    emailjs.sendForm(serviceID, templateID, this)
+      .then(() => {
+        btn.textContent = 'Pesan Terkirim ✓';
+        alert('Terima kasih! Pesan Anda telah terkirim langsung ke Email kami.');
+        document.getElementById('contact-form').reset();
+        setTimeout(() => {
+          btn.textContent = 'Kirim Pesan ke Email →';
+          btn.disabled = false;
+        }, 3000);
+      }, (err) => {
+        btn.textContent = 'Gagal Mengirim';
+        btn.disabled = false;
+        console.error('EmailJS Error:', err);
+        alert('Gagal mengirim pesan. Silakan periksa koneksi atau konsol browser.');
+      });
+  });
+
+  /* ---------- FITUR KERANJANG BELANJA ---------- */
+  let cart = [];
+
+  function addToCart(name, price) {
+    const existing = cart.find(item => item.name === name);
+    if(existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({ name, price, qty: 1 });
+    }
+    updateCartUI();
+    openModal();
+  }
+
+  function updateCartUI() {
+    const container = document.getElementById('cart-items-container');
+    const badge = document.getElementById('cart-count');
+    const totalPrice = document.getElementById('cart-total-price');
+
+    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    badge.textContent = totalQty;
+
+    if(cart.length === 0) {
+      container.innerHTML = '<p style="color: var(--muted); font-size: 0.9rem;">Keranjang belanja Anda masih kosong.</p>';
+      totalPrice.textContent = 'Rp 0';
+      return;
+    }
+
+    let html = '';
+    let grandTotal = 0;
+
+    cart.forEach((item, index) => {
+      const subtotal = item.price * item.qty;
+      grandTotal += subtotal;
+      html += `
+        <div class="cart-item">
+          <div>
+            <div style="font-weight:600; font-size:0.95rem;">${item.name}</div>
+            <div style="color:var(--muted); font-size:0.8rem;">Rp ${item.price.toLocaleString('id-ID')} x ${item.qty}</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-weight:600;">Rp ${subtotal.toLocaleString('id-ID')}</div>
+            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:var(--ember); font-size:0.75rem; cursor:pointer;">Hapus</button>
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+    totalPrice.textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+  }
+
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+  }
+
+  function checkoutWhatsApp() {
+    if(cart.length === 0) {
+      alert('Keranjang Anda masih kosong!');
+      return;
+    }
+    let message = 'Halo XEP CLOUDSTORE, saya ingin memesan:\n\n';
+    let grandTotal = 0;
+    cart.forEach(item => {
+      const subtotal = item.price * item.qty;
+      grandTotal += subtotal;
+      message += `- ${item.name} (${item.qty}x) : Rp ${subtotal.toLocaleString('id-ID')}\n`;
+    });
+    message += `\n*Total Keseluruhan:* Rp ${grandTotal.toLocaleString('id-ID')}`;
+    
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/628123456789?text=${encodedMessage}`, '_blank');
+  }
+
+  /* ---------- MODAL CONTROLS ---------- */
+  const modal = document.getElementById('cart-modal');
+  const cartToggle = document.getElementById('cart-toggle');
+  const modalClose = document.getElementById('modal-close');
+
+  function openModal() { modal.classList.add('active'); }
+  function closeModal() { modal.classList.remove('active'); }
+
+  cartToggle.addEventListener('click', openModal);
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if(e.target === modal) closeModal();
+  });
+
+  /* ---------- FITUR FILTER KATALOG ---------- */
+  function filterProducts(category) {
+    const buttons = document.querySelectorAll('.filter-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    const products = document.querySelectorAll('.product-card');
+    products.forEach(card => {
+      if(category === 'all' || card.dataset.category === category) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
